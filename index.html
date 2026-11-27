@@ -159,8 +159,8 @@ h1 em{display:block;font-style:normal;color:var(--sky);text-shadow:0 0 34px rgba
 
 <script>
 const TELEGRAM_USERNAME = "AcLoTeL";
-// Реальные покупки: адрес вашего сервера из bot.py, например "https://example.com/purchases"
-const PURCHASES_API = "";
+// Реальные покупки: файл purchases.json, который бот сам обновляет в репозитории сайта
+const PURCHASES_API = "purchases.json";
 // Юзернейм бота для оплаты Stars (без @). Если задан — кнопка оплаты ведёт в бота.
 const PAYMENT_BOT = "webacst_bot";
 
@@ -204,9 +204,10 @@ async function loadBoard(){
   const feed = document.getElementById("feed");
   let list = [];
   if(PURCHASES_API){
-    try{ const res = await fetch(PURCHASES_API, {cache:"no-store"}); if(res.ok) list = await res.json(); }
+    try{ const res = await fetch(PURCHASES_API + "?t=" + Date.now(), {cache:"no-store"}); if(res.ok) list = await res.json(); }
     catch(e){ console.warn("Не удалось загрузить покупки", e); }
   }
+  list = list.filter(p => Date.now() - p.ts < 24*60*60*1000);
   document.getElementById("bCount").textContent = list.length;
   document.getElementById("bStars").textContent = list.reduce((a,p) => a + (p.stars||0), 0) + " ⭐️";
   feed.replaceChildren();
