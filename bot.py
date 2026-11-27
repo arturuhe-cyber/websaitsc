@@ -19,8 +19,8 @@ from telegram import Update, LabeledPrice, InlineKeyboardButton as Btn, InlineKe
 from telegram.ext import (Application, CommandHandler, PreCheckoutQueryHandler, CallbackQueryHandler,
                           MessageHandler, ContextTypes, filters)
 
-TOKEN = os.environ["BOT_TOKEN"]
-ADMIN_ID = int(os.environ["ADMIN_ID"])
+TOKEN = "9174954512:AAEiw1A5IpFyngqNiLzrfz0IKasMFF1bQ9A"
+ADMIN_ID = 8689175149
 PORT = int(os.environ.get("PORT", "8080"))
 FILE = "purchases.json"
 PLANS = {"basic": {"title": "Базовое обучение", "stars": 44}}
